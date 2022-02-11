@@ -61,7 +61,6 @@ def tol_kp(tol):
         return tol_x
 
 
-
 def name_det(name):
     """
     Рандомно выбирает ремонт из файла namedet.csv
@@ -77,15 +76,27 @@ def name_det(name):
         return list_x
 
 
-def det_x(det):
+def det_x(det, n):
     with open(det, 'r', encoding='utf-8') as fr:
         det_list = fr.readlines()
         x = []
-        for _ in range(10):
+        for _ in range(n):
             x_det = det_list[random.randint(0, len(det_list) - 1)].strip()
             x_det.split()
             xx = x_det.split('\t')
-            x.append('-'.join(xx))
+            x.append('-'.join(xx[:3]))
+        return x
+
+
+def det_udv_id(det, n):
+    with open(det, 'r', encoding='utf-8') as fr:
+        det_list = fr.readlines()
+        x = []
+        for _ in range(n):
+            x_det = det_list[random.randint(0, len(det_list) - 1)].strip()
+            x_det.split()
+            xx = x_det.split('\t')
+            x.append(''.join(xx[3]))
         return x
 
 
@@ -107,5 +118,5 @@ def dog_x(dog, n):
 
 
 if __name__ == '__main__':
-    name = 'file/dog.csv'
-    print(det_x(name))
+    det = 'file/det.csv'
+    print(det_udv_id(det, 2))

@@ -32,24 +32,29 @@ layout = [
 window = sg.Window('МЕНЮ ТЕСТОВ', layout)
 while True:
     event, values = window.read()
-    if values[3]:
-        continue
     if event in (None, 'Exit', 'Выйти'):
         break
     if event == 'Сформировать Тест':
         if values[0]:
-            tab_list.tab()
+            if values[3] == 'Калабин Андрей Сергеевич':
+                tab_list.tab()
+            elif not values[3]:
+                print('МЫ ВАС НЕ УЗНАЛИ!!! НАйдите себя в списке!')
+            else:
+                tab_list.tab()
+                print('Тест сформирован')
         elif values[1]:
             if values[2]:
                 if values[3] == 'Калабин Андрей Сергеевич':
                     test_dog.test(int(values[2]))
+                    print('Уважаемый Андрей Сергеевич! Все тесты сформированы!')
                 elif not values[3]:
                     print('МЫ ВАС НЕ УЗНАЛИ!!! НАйдите себя в списке!')
                 else:
                     test_dog.test_indiv(values[3], int(values[2]))
-                print('Тест сформирован')
+                print('Тест по Договрам сформирован')
             else:
-                print('Введите количество задач')
+                print('Введите количество задач для Теста по Договорам')
         elif not values[0] and not values[1]:
             print('Выберите тест для формирования')
     else:

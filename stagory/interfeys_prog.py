@@ -1,47 +1,40 @@
 import PySimpleGUI as sg
-import time
 import test_dog
 import tab_list
 import def_x
 
-# def countdown(num_of_secs):
-#     while num_of_secs:
-#         m, s = divmod(num_of_secs, 60)
-#         min_sec_format = '{:02d}:{:02d}'.format(m, s)
-#         print(min_sec_format, end='/r')
-#         time.sleep(1)
-#         num_of_secs -= 1
-#
-#     print('Countdown finished.')
-#
 
 path_users_file = 'file/users.csv'
 combo = sg.Combo(def_x.name_list(path_users_file))
-
-# text = sg.popup_get_text('Введите Ваше Имя', title='Привет', default_text='Иванов Иван Иванович')
-# sg.popup(text)
-
 layout = [
     [sg.Text('Выберите действие'),
      sg.Checkbox('Тест по деталям'), sg.Checkbox('Тест по Договорам'),
      sg.Text('Введите колличество заданий'), sg.InputText(size=(2, 1), border_width=2, tooltip='Введите число заданий')
      ], [combo],
     [sg.Output(size=(60, 5))],
-    [sg.Submit(button_text='Сформировать Тест'), sg.Cancel(button_text='Выйти')]
+    [sg.Submit(button_text='Сформировать Тест'), sg.Submit(button_text='Поиграть'), sg.Cancel(button_text='Выйти')]
 ]
-window = sg.Window('МЕНЮ ТЕСТОВ', layout)
+window = sg.Window('МЕНЮ ТЕСТОВ', layout, finalize=True)
 while True:
     event, values = window.read()
     if event in (None, 'Exit', 'Выйти'):
         break
-    if event == 'Сформировать Тест':
+    elif event == 'Сформировать Тест':
         if values[0]:
             if values[3] == 'Калабин Андрей Сергеевич':
-                tab_list.tab()
+                if values[2]:
+                    flag = False
+                    tab_list.tab(int(values[2]), flag)
+                else:
+                    print('Введите количество заданий!!!')
             elif not values[3]:
                 print('МЫ ВАС НЕ УЗНАЛИ!!! НАйдите себя в списке!')
             else:
-                tab_list.tab()
+                if values[2]:
+                    flag = True
+                    tab_list.tab(int(values[2]), flag)
+                else:
+                    print('Введите количество заданий!!!')
                 print('Тест сформирован')
         elif values[1]:
             if values[2]:
@@ -57,6 +50,8 @@ while True:
                 print('Введите количество задач для Теста по Договорам')
         elif not values[0] and not values[1]:
             print('Выберите тест для формирования')
+    elif event == 'Поиграть':
+        sg.SystemTray.notify('ИГРЫ КОНЧИЛИСЬ', 'ПОРА ДОМОЙ!!!')
     else:
         print('МЫ ВАС НЕ УЗНАЛИ!!! НАйдите себя в списке!')
 window.close()

@@ -2,7 +2,7 @@ import pandas as pd
 import def_x
 
 
-def tab(FLAG_X = False):
+def tab(n, FLAG_X = False):
     path_zav_file = 'file/det.csv'
     path_users_file = 'file/users.csv'
     result = {}
@@ -12,7 +12,7 @@ def tab(FLAG_X = False):
         if FLAG_X:
             adres_name = adres + name + '.xlsx'
             list_adres.append(adres_name)
-            num_list = def_x.det_x(path_zav_file, 30)
+            num_list = def_x.det_x(path_zav_file, n)
             name_det = def_x.name_det('file/namedet.csv')
             result['Номер детали'] = num_list
             result['Наименование детали'] = name_det
@@ -43,7 +43,6 @@ def tab(FLAG_X = False):
         else:
             adres_name = adres + name + '.xlsx'
             list_adres.append(adres_name)
-            n = 30
             num_list = def_x.det_x_list(path_zav_file, n)
             result['Номер детали'] = def_x.det_x(num_list)
             result['ID детали'] = def_x.det_udv_id(num_list)
@@ -75,4 +74,4 @@ def tab(FLAG_X = False):
 
 
 if __name__ == '__main__':
-    tab()
+    tab(30)

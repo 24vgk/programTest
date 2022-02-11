@@ -44,16 +44,14 @@ def tab(FLAG_X = False):
             adres_name = adres + name + '.xlsx'
             list_adres.append(adres_name)
             n = 30
-            num_list = def_x.det_x(path_zav_file, n)
-            num_list_id = def_x.det_udv_id(path_zav_file, n)
-            result['Номер детали'] = num_list
-            result['ID детали'] = num_list_id
+            num_list = def_x.det_x_list(path_zav_file, n)
+            result['Номер детали'] = def_x.det_x(num_list)
+            result['ID детали'] = def_x.det_udv_id(num_list)
             result['Наименование детали'] = None
             result['Толщина обода'] = None
             result['ID Ремонта'] = None
             result['ID Пересылки1'] = None
             result['ID Пересылки2'] = None
-            result['Источник образования'] = None
             result['Дата образования'] = None
             result['Собственность'] = None
             result['Сколько деталей в Пересылке1'] = None
@@ -65,8 +63,8 @@ def tab(FLAG_X = False):
             try:
                 df = pd.DataFrame(result)
                 with pd.ExcelWriter(adres_name, engine='xlsxwriter') as wb:
-                    df.to_excel(wb, sheet_name='ТЕСТ ПО ДОГОВОРАМ', index=False)
-                    sheet = wb.sheets['ТЕСТ ПО ДОГОВОРАМ']
+                    df.to_excel(wb, sheet_name='ТЕСТ ПО ДЕТАЛЯМ', index=False)
+                    sheet = wb.sheets['ТЕСТ ПО ДЕТАЛЯМ']
                     sheet.set_row(0, 100)
                     sheet.set_column(0, 0, 40)
                     sheet.set_column(1, 1, 20)

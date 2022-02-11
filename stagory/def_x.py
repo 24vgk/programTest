@@ -76,7 +76,7 @@ def name_det(name):
         return list_x
 
 
-def det_x(det, n):
+def det_x_list(det, n):
     with open(det, 'r', encoding='utf-8') as fr:
         det_list = fr.readlines()
         x = []
@@ -84,20 +84,22 @@ def det_x(det, n):
             x_det = det_list[random.randint(0, len(det_list) - 1)].strip()
             x_det.split()
             xx = x_det.split('\t')
-            x.append('-'.join(xx[:3]))
+            x.append(xx)
         return x
 
 
-def det_udv_id(det, n):
-    with open(det, 'r', encoding='utf-8') as fr:
-        det_list = fr.readlines()
-        x = []
-        for _ in range(n):
-            x_det = det_list[random.randint(0, len(det_list) - 1)].strip()
-            x_det.split()
-            xx = x_det.split('\t')
-            x.append(''.join(xx[3]))
-        return x
+def det_x(list_x):
+    x = []
+    for i in list_x:
+        x.append('-'.join(i[:3]))
+    return x
+
+
+def det_udv_id(list_x):
+    x = []
+    for i in list_x:
+        x.append(''.join(i[3]))
+    return x
 
 
 def dog_x(dog, n):
@@ -119,4 +121,6 @@ def dog_x(dog, n):
 
 if __name__ == '__main__':
     det = 'file/det.csv'
-    print(det_udv_id(det, 2))
+    print(det_x(det_x_list(det, 5)))
+    print(det_udv_id(det_x_list(det, 5)))
+    print(det_x_list(det, 5))

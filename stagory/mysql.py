@@ -12,7 +12,7 @@ sql_port = 3306
 ssh_host = '194.67.105.196'
 ssh_user = 'root'
 ssh_port = 22
-ssh_password ='V1qaz2wsx'
+ssh_password ='jFuJ7p$KTX?3'
 sql_ip = '1.1.1.1.1'
 with SSHTunnelForwarder(
         (ssh_host, ssh_port),
@@ -23,5 +23,10 @@ with SSHTunnelForwarder(
             port=tunnel.local_bind_port)
     query = '''SELECT VERSION();'''
     data = pd.read_sql_query(query, conn)
-    print(data)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM users")
+    rows = cursor.fetchall()
+    for row in rows:
+        print("{0} {1} {2}".format(row[0], row[1], row[2]))
+        print(row[2])
     conn.close()

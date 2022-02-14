@@ -1,25 +1,12 @@
 import PySimpleGUI as sg
-import time
 import test_dog
 import tab_list
 import def_x
 
-# def countdown(num_of_secs):
-#     while num_of_secs:
-#         m, s = divmod(num_of_secs, 60)
-#         min_sec_format = '{:02d}:{:02d}'.format(m, s)
-#         print(min_sec_format, end='/r')
-#         time.sleep(1)
-#         num_of_secs -= 1
-#
-#     print('Countdown finished.')
-#
 
 path_users_file = 'file/users.csv'
 combo = sg.Combo(def_x.name_list(path_users_file))
 
-# text = sg.popup_get_text('Введите Ваше Имя', title='Привет', default_text='Иванов Иван Иванович')
-# sg.popup(text)
 
 layout = [
     [sg.Text('Выберите действие'),
